@@ -4,7 +4,6 @@
   "description": "Enhancing the JIRA user experience",
   "permissions": [
     "storage",
-    "declarativeContent",
     "webNavigation",
     "webRequest",
     "webRequestBlocking",
