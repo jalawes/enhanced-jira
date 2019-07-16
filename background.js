@@ -9,8 +9,6 @@ chrome.webNavigation.onCompleted.addListener(function(details){
     }
 });
 
-//sometimes data updates not on a page load, but after an ajax request.
-// this waits for requests for user data and resets the background image.
 chrome.webRequest.onBeforeRequest.addListener(function(details){
     if (details.url.includes('https://coconutcalendar.atlassian.net/rest/greenhopper/1.0/userData')) {
         chrome.tabs.executeScript(details.tabId, { file: "features/setBackgroundImage.js" });
