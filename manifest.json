@@ -12,9 +12,5 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_scripts": [{
-    "matches": ["file:///*"],
-    "js":      ["content.js"]
-  }],
   "manifest_version": 2
 }
