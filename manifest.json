@@ -5,7 +5,7 @@
   "permissions": [
     "storage",
     "declarativeContent",
-    "tabs",
+    "webNavigation",
     "https://coconutcalendar.atlassian.net/secure/RapidBoard"
   ],
   "background": {
