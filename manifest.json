@@ -8,7 +8,7 @@
     "webNavigation",
     "webRequest",
     "webRequestBlocking",
-    "https://coconutcalendar.atlassian.net/secure/RapidBoard"
+    "https://*.atlassian.net/secure/RapidBoard"
   ],
   "background": {
     "scripts": ["background.js"],

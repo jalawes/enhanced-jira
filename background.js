@@ -4,13 +4,13 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.webNavigation.onCompleted.addListener(function(details){
-    if (details.url.indexOf('coconutcalendar.atlassian.net') != -1) {
+    if (details.url.indexOf('.atlassian.net') != -1) {
         chrome.tabs.executeScript(details.tabId, { file: "features/setBackgroundImage.js" });
     }
 });
 
 chrome.webRequest.onBeforeRequest.addListener(function(details){
-    if (details.url.includes('https://coconutcalendar.atlassian.net/rest/greenhopper/1.0/userData')) {
+    if (details.url.includes('atlassian.net/rest/greenhopper/1.0/userData')) {
         chrome.tabs.executeScript(details.tabId, { file: "features/setBackgroundImage.js" });
     }
     return {requestHeaders: details.requestHeaders};
