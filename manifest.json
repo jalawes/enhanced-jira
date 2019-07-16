@@ -1,6 +1,20 @@
 {
-    "name": "Enhanced Jira",
-    "version": "1.0",
-    "description": "Enhancing the JIRA user experience",
-    "manifest_version": 2
+  "name": "Enhanced Jira",
+  "version": "1.0",
+  "description": "Enhancing the JIRA user experience",
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "tabs",
+    "https://coconutcalendar.atlassian.net/secure/RapidBoard"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [{
+    "matches": ["file:///*"],
+    "js":      ["content.js"]
+  }],
+  "manifest_version": 2
 }
