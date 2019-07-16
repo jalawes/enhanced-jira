@@ -6,11 +6,13 @@
     "storage",
     "declarativeContent",
     "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
     "https://coconutcalendar.atlassian.net/secure/RapidBoard"
   ],
   "background": {
     "scripts": ["background.js"],
-    "persistent": false
+    "persistent": true
   },
   "options_page": "options.html",
   "manifest_version": 2
