@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function() {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
         if (tab.url.indexOf('coconutcalendar.atlassian.net') != -1) {
-            chrome.tabs.executeScript(tab.id, { file: "setBackgroundImage.js" });
+            chrome.tabs.executeScript(tab.id, { file: "features/setBackgroundImage.js" });
         }
     }
 });
