@@ -1,6 +1,18 @@
 {
-    "name": "Enhanced Jira",
-    "version": "1.0",
-    "description": "Enhancing the JIRA user experience",
-    "manifest_version": 2
+  "name": "Enhanced Jira",
+  "version": "1.0",
+  "description": "Enhancing the JIRA user experience",
+  "permissions": [
+    "storage",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
+    "https://*.atlassian.net/secure/RapidBoard"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "options_page": "options.html",
+  "manifest_version": 2
 }
