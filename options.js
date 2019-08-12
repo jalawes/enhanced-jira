@@ -1,8 +1,5 @@
-const saveButton = document.getElementById('optionsSave');
-
-const successAlert = document.getElementById('success-alert');
-
 const showSaveAlert = () => {
+  const successAlert = document.getElementById('success-alert');
   successAlert.classList.remove('hidden');
   window.setTimeout(() => {
     successAlert.classList.add('hidden');
@@ -17,7 +14,7 @@ const save = () => {
   showSaveAlert();
 };
 
-saveButton.addEventListener('click', () => save());
+document.getElementById('optionsSave').addEventListener('click', () => save());
 
 document.addEventListener('DOMContentLoaded', () => {
   chrome.storage.sync.get(['backgroundImageUrl', 'backgroundEnabled'], (data) => {
