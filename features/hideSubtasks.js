@@ -23,7 +23,7 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn'], functio
             console.log('column');
             const parents = document.querySelectorAll('.ghx-parent-group');
             parents.forEach((parentCard, index) => {
-                const hasButtonAlready = parentCard.innerHTML.includes('collapse subtasks');
+                const hasButtonAlready = parentCard.innerHTML.includes('subtasks</button>');
                 if (!hasButtonAlready) {
                     parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
                     var myButton = document.querySelector ('#subtask-button-' + index);
