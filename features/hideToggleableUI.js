@@ -35,21 +35,21 @@ chrome.storage.sync.get([
             }
         }
     }
-    if (data.hideNonClosedIssuesButtonEnabled && document.querySelector('.time')) {
+    if (data.hideNonClosedIssuesButtonEnabled) {
         for (const button of document.querySelector('#ghx-quick-filters').querySelectorAll("button")) {
             if (button.textContent.includes("Non-Closed Issues")) {
                 button.remove();
             }
         }
     }
-    if (data.hideOnlyMyIssuesButtonEnabled && document.querySelector('.time')) {
+    if (data.hideOnlyMyIssuesButtonEnabled) {
         for (const button of document.querySelector('#ghx-quick-filters').querySelectorAll("button")) {
             if (button.textContent.includes("Only My Issues")) {
                 button.remove();
             }
         }
     }
-    if (data.hideRecentlyUpdatedButtonEnabled && document.querySelector('.time')) {
+    if (data.hideRecentlyUpdatedButtonEnabled) {
         for (const button of document.querySelector('#ghx-quick-filters').querySelectorAll("button")) {
             if (button.textContent.includes("Recently Updated")) {
                 button.remove();
