@@ -9,6 +9,7 @@ chrome.webNavigation.onCompleted.addListener((details) => {
     chrome.tabs.executeScript(details.tabId, { file: 'features/setAssigneeHighlight.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/hideToggleableUI.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/quickMenu.js' });
+    chrome.tabs.executeScript(details.tabId, { file: 'features/hideSubtasks.js' });
   }
 });
 
@@ -18,6 +19,7 @@ chrome.webRequest.onBeforeRequest.addListener((details) => {
     chrome.tabs.executeScript(details.tabId, { file: 'features/setAssigneeHighlight.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/hideToggleableUI.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/quickMenu.js' });
+    chrome.tabs.executeScript(details.tabId, { file: 'features/hideSubtasks.js' });
   }
   return { requestHeaders: details.requestHeaders };
 }, { urls: ['<all_urls>'] }, ['blocking']);

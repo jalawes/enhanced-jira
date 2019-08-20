@@ -1,7 +1,6 @@
 chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
     if (data.quickMenuEnabled && !document.querySelector('#quick-menu')) {
         const openMenu = () => {
-            console.log(document.querySelector('#quick-menu-content').style.visibility);
             if (document.querySelector('#quick-menu-content').style.visibility == 'hidden'){
                 document.querySelector('#quick-menu-content').style.visibility = 'visible';
             } else {
@@ -34,7 +33,6 @@ chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
         content.style.borderRadius = '4px';
         content.style.visibility = 'hidden';
         menuButton.parentElement.insertBefore(content, menuButton);
-
 
         document.getElementById('quick-menu').addEventListener('click', () => openMenu());
     }
