@@ -7,9 +7,6 @@ const showSaveAlert = () => {
     }, 5000);
 };
 const save = () => {
-    const enableCustomBackground = document.getElementById('optionEnableCustomBackground');
-    const customBackgroundUrl = document.getElementById('optionCustomBackgroundUrl');
-    const enableAssigneeHighlighting = document.getElementById('optionEnableAssigneeHighlighting');
     const assigneeNames = document.querySelectorAll('.optionAssignee');
     const assigneeColours = document.querySelectorAll('.optionAssigneeColour');
     let assigneeNameAndColours = {};
@@ -17,10 +14,20 @@ const save = () => {
         assigneeNameAndColours[assigneeNames[i].value] = assigneeColours[i].value;
     }
 
-    chrome.storage.sync.set({backgroundEnabled: enableCustomBackground.checked});
-    chrome.storage.sync.set({backgroundImageUrl: customBackgroundUrl.value});
-    chrome.storage.sync.set({assigneeHighlightingEnabled: enableAssigneeHighlighting.checked});
+    chrome.storage.sync.set({backgroundEnabled: document.getElementById('optionEnableCustomBackground').checked});
+    chrome.storage.sync.set({backgroundImageUrl: document.getElementById('optionCustomBackgroundUrl').value});
+    chrome.storage.sync.set({assigneeHighlightingEnabled: document.getElementById('optionEnableAssigneeHighlighting').checked});
     chrome.storage.sync.set({assigneeNameAndColours: assigneeNameAndColours});
+    chrome.storage.sync.set({hideBreadCrumbsEnabled: document.getElementById('optionHideBreadCrumbs').checked});
+    chrome.storage.sync.set({hideBoardTitleEnabled: document.getElementById('optionHideBoardTitle').checked});
+    chrome.storage.sync.set({hideShareButtonEnabled: document.getElementById('optionHideShareButton').checked});
+    chrome.storage.sync.set({hideStartSprintButtonEnabled: document.getElementById('optionHideStartSprintButton').checked});
+    chrome.storage.sync.set({hideStarEnabled: document.getElementById('optionHideStar').checked});
+    chrome.storage.sync.set({hideDaysRemainingEnabled: document.getElementById('optionHideDaysRemaining').checked});
+    chrome.storage.sync.set({hideNoSubtasksButtonEnabled: document.getElementById('optionHideNoSubtasksButton').checked});
+    chrome.storage.sync.set({hideNonClosedIssuesButtonEnabled: document.getElementById('optionHideNonClosedIssuesButton').checked});
+    chrome.storage.sync.set({hideOnlyMyIssuesButtonEnabled: document.getElementById('optionHideOnlyMyIssuesButton').checked});
+    chrome.storage.sync.set({hideRecentlyUpdatedButtonEnabled: document.getElementById('optionHideRecentlyUpdatedButton').checked});
     showSaveAlert();
 };
 document.getElementById('optionsSave').addEventListener('click', () => save());
@@ -68,10 +75,35 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     };
-    chrome.storage.sync.get(['backgroundImageUrl', 'backgroundEnabled', 'assigneeHighlightingEnabled', 'assigneeNameAndColours'], function(data) {
+    chrome.storage.sync.get([
+        'backgroundImageUrl',
+        'backgroundEnabled',
+        'assigneeHighlightingEnabled',
+        'assigneeNameAndColours',
+        'hideBreadCrumbsEnabled',
+        'hideBoardTitleEnabled',
+        'hideShareButtonEnabled',
+        'hideStartSprintButtonEnabled',
+        'hideStarEnabled',
+        'hideDaysRemainingEnabled',
+        'hideNoSubtasksButtonEnabled',
+        'hideNonClosedIssuesButtonEnabled',
+        'hideOnlyMyIssuesButtonEnabled',
+        'hideRecentlyUpdatedButtonEnabled',
+    ], function(data) {
         document.getElementById('optionEnableCustomBackground').checked = data.backgroundEnabled;
         document.getElementById('optionCustomBackgroundUrl').value = data.backgroundImageUrl;
         document.getElementById('optionEnableAssigneeHighlighting').checked = data.assigneeHighlightingEnabled;
         assigneeNameAndColours(data.assigneeNameAndColours);
+        document.getElementById('optionHideBreadCrumbs').checked = data.hideBreadCrumbsEnabled;
+        document.getElementById('optionHideBoardTitle').checked = data.hideBoardTitleEnabled;
+        document.getElementById('optionHideShareButton').checked = data.hideShareButtonEnabled;
+        document.getElementById('optionHideStartSprintButton').checked = data.hideStartSprintButtonEnabled;
+        document.getElementById('optionHideStar').checked = data.hideStarEnabled;
+        document.getElementById('optionHideDaysRemaining').checked = data.hideDaysRemainingEnabled;
+        document.getElementById('optionHideNoSubtasksButton').checked = data.hideNoSubtasksButtonEnabled;
+        document.getElementById('optionHideNonClosedIssuesButton').checked = data.hideNonClosedIssuesButtonEnabled;
+        document.getElementById('optionHideOnlyMyIssuesButton').checked = data.hideOnlyMyIssuesButtonEnabled;
+        document.getElementById('optionHideRecentlyUpdatedButton').checked = data.hideRecentlyUpdatedButtonEnabled;
     });
 });
