@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const saveButton = document.getElementById('optionsSave');
-    saveButton.addEventListener('click', function () {
+    const showSaveAlert = () => {
+        const successAlert = document.getElementById('success-alert');
+        successAlert.classList.remove('hidden');
+        window.setTimeout(() => {
+            successAlert.classList.add('hidden');
+        }, 5000);
+        showSaveAlert();
+    };
+
+    const save = () => {
         const enableCustomBackground = document.getElementById('optionEnableCustomBackground');
         const customBackgroundUrl = document.getElementById('optionCustomBackgroundUrl');
         const assigneeNames = document.querySelectorAll('.optionAssignee');
@@ -13,7 +21,10 @@ document.addEventListener("DOMContentLoaded", function() {
         chrome.storage.sync.set({backgroundEnabled: enableCustomBackground.checked});
         chrome.storage.sync.set({backgroundImageUrl: customBackgroundUrl.value});
         chrome.storage.sync.set({assigneeNameAndColours: assigneeNameAndColours});
-    });
+        showSaveAlert();
+    };
+
+    document.getElementById('optionsSave').addEventListener('click', () => save());
 
     const removeAssignee = function (event) {
         const assignee = event.target.parentNode.parentNode;
@@ -36,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <button class="mt-1 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded removeAssigneeButton" type="button">remove</button>
           </div>
         </div>`;
+
     function addAssignee(name, colour) {
         const assignee = document.createElement("div");
         assignee.innerHTML = assigneeHTML;
@@ -43,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
         assignee.querySelector('.optionAssigneeColour').value = colour;
         const parentContainer = document.querySelector('form');
         assignee.querySelector('.removeAssigneeButton').addEventListener('click', removeAssignee, false);
-        parentContainer.insertBefore(assignee, parentContainer.children[3]);
+        parentContainer.insertBefore(assignee, parentContainer.children[5]);
     }
 
     const addAssigneeButton = document.getElementById('addAssignee');
