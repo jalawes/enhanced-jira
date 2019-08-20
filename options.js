@@ -28,6 +28,8 @@ const save = () => {
     chrome.storage.sync.set({hideNonClosedIssuesButtonEnabled: document.getElementById('optionHideNonClosedIssuesButton').checked});
     chrome.storage.sync.set({hideOnlyMyIssuesButtonEnabled: document.getElementById('optionHideOnlyMyIssuesButton').checked});
     chrome.storage.sync.set({hideRecentlyUpdatedButtonEnabled: document.getElementById('optionHideRecentlyUpdatedButton').checked});
+    chrome.storage.sync.set({quickMenuEnabled: document.getElementById('optionEnableQuickMenu').checked});
+    chrome.storage.sync.set({QuickMenuHTML: document.getElementById('optionQuickMenuHTML').value});
     showSaveAlert();
 };
 document.getElementById('optionsSave').addEventListener('click', () => save());
@@ -90,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'hideNonClosedIssuesButtonEnabled',
         'hideOnlyMyIssuesButtonEnabled',
         'hideRecentlyUpdatedButtonEnabled',
+        'quickMenuEnabled',
+        'QuickMenuHTML',
     ], function(data) {
         document.getElementById('optionEnableCustomBackground').checked = data.backgroundEnabled;
         document.getElementById('optionCustomBackgroundUrl').value = data.backgroundImageUrl;
@@ -105,5 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('optionHideNonClosedIssuesButton').checked = data.hideNonClosedIssuesButtonEnabled;
         document.getElementById('optionHideOnlyMyIssuesButton').checked = data.hideOnlyMyIssuesButtonEnabled;
         document.getElementById('optionHideRecentlyUpdatedButton').checked = data.hideRecentlyUpdatedButtonEnabled;
+        document.getElementById('optionEnableQuickMenu').checked = data.quickMenuEnabled;
+        document.getElementById('optionQuickMenuHTML').value = data.QuickMenuHTML;
     });
 });
