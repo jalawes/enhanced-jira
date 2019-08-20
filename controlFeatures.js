@@ -6,12 +6,14 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.webNavigation.onCompleted.addListener((details) => {
   if (details.url.indexOf('.atlassian.net') != -1) {
     chrome.tabs.executeScript(details.tabId, { file: 'features/setBackgroundImage.js' });
+    chrome.tabs.executeScript(details.tabId, { file: 'features/setAssigneeHighlight.js' });
   }
 });
 
 chrome.webRequest.onBeforeRequest.addListener((details) => {
-  if (details.url.includes('atlassian.net/rest/greenhopper/1.0/userData')) {
+  if (details.url.includes('atlassian.net/rest/greenhopper')) {
     chrome.tabs.executeScript(details.tabId, { file: 'features/setBackgroundImage.js' });
+    chrome.tabs.executeScript(details.tabId, { file: 'features/setAssigneeHighlight.js' });
   }
   return { requestHeaders: details.requestHeaders };
 }, { urls: ['<all_urls>'] }, ['blocking']);

@@ -10,7 +10,7 @@
     "https://*.atlassian.net/secure/RapidBoard"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["controlFeatures.js"],
     "persistent": true
   },
   "options_page": "options.html",
