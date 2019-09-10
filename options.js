@@ -32,6 +32,7 @@ const save = () => {
     chrome.storage.sync.set({QuickMenuHTML: document.getElementById('optionQuickMenuHTML').value});
     chrome.storage.sync.set({collapsibleSubtasksEnabled: document.getElementById('optionEnableCollapsibleSubtasks').checked});
     chrome.storage.sync.set({boardOrColumn: document.getElementById('boardOrColumn').children[2].checked ? 2 : 0});
+    chrome.storage.sync.set({collapseSubtasksByDefaultEnabled: document.getElementById('optionCollapseSubtasksByDefault').checked});
     showSaveAlert();
 };
 document.getElementById('optionsSave').addEventListener('click', () => save());
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'QuickMenuHTML',
         'collapsibleSubtasksEnabled',
         'boardOrColumn',
+        'collapseSubtasksByDefaultEnabled',
     ], function(data) {
         document.getElementById('optionEnableCustomBackground').checked = data.backgroundEnabled;
         document.getElementById('optionCustomBackgroundUrl').value = data.backgroundImageUrl;
@@ -117,5 +119,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('optionQuickMenuHTML').value = data.QuickMenuHTML;
         document.getElementById('optionEnableCollapsibleSubtasks').checked = data.collapsibleSubtasksEnabled;
         document.getElementById('boardOrColumn').children[data.boardOrColumn || 0].checked = true;
+        document.getElementById('optionCollapseSubtasksByDefault').checked = data.collapseSubtasksByDefaultEnabled;
     });
 });
