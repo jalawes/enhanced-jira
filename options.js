@@ -14,6 +14,12 @@ const save = () => {
         assigneeNameAndColours[assigneeNames[i].value] = assigneeColours[i].value;
     }
 
+    const priorityColours = document.querySelectorAll('.priorityIndicationColour');
+    const priorityColourOptions = [];
+    for (let i = 0; i < priorityColours.length; i++) {
+        priorityColourOptions[i] = priorityColours[i].value;
+    }
+
     chrome.storage.sync.set({backgroundEnabled: document.getElementById('optionEnableCustomBackground').checked});
     chrome.storage.sync.set({backgroundImageUrl: document.getElementById('optionCustomBackgroundUrl').value});
     chrome.storage.sync.set({assigneeHighlightingEnabled: document.getElementById('optionEnableAssigneeHighlighting').checked});
@@ -33,6 +39,8 @@ const save = () => {
     chrome.storage.sync.set({collapsibleSubtasksEnabled: document.getElementById('optionEnableCollapsibleSubtasks').checked});
     chrome.storage.sync.set({boardOrColumn: document.getElementById('boardOrColumn').children[2].checked ? 2 : 0});
     chrome.storage.sync.set({collapseSubtasksByDefaultEnabled: document.getElementById('optionCollapseSubtasksByDefault').checked});
+    chrome.storage.sync.set({priorityIndicationEnabled: document.getElementById('optionEnablePriorityIndication').checked});
+    chrome.storage.sync.set({priorityColour: priorityColourOptions});
     showSaveAlert();
 };
 document.getElementById('optionsSave').addEventListener('click', () => save());
@@ -56,7 +64,7 @@ const assigneeHTML = `<div class="md:flex md:items-center mb-1">
       </div>
       <div class="md:w-2/3">
         <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssignee" placeholder="Name" type="text" value="Jane Doe">
-        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssigneeColour" placeholder="Colour" type="text" value="#ffffff">
+        <input style="position: relative; top: 7px; height: 2.25rem;" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/6 text-gray-700 optionAssigneeColour optionAssigneeColour" placeholder="Colour" type="color" value="#ffffff">
         <button class="mt-1 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded removeAssigneeButton" type="button">remove</button>
       </div>
     </div>`;
@@ -151,6 +159,16 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     };
+
+    const setPrioirtyColours = (priorityColour) => {
+        if (priorityColour) {
+            const priorityColourOptions = document.querySelectorAll('.priorityIndicationColour');
+            for (let i = 0; i < priorityColourOptions.length; i++) {
+                priorityColourOptions[i].value = priorityColour[i];
+            }
+        }
+    };
+
     chrome.storage.sync.get([
         'backgroundImageUrl',
         'backgroundEnabled',
@@ -171,6 +189,8 @@ document.addEventListener("DOMContentLoaded", function() {
         'collapsibleSubtasksEnabled',
         'boardOrColumn',
         'collapseSubtasksByDefaultEnabled',
+        'priorityIndicationEnabled',
+        'priorityColour',
     ], function(data) {
         document.getElementById('optionEnableCustomBackground').checked = data.backgroundEnabled;
         document.getElementById('optionCustomBackgroundUrl').value = data.backgroundImageUrl;
@@ -191,5 +211,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('optionEnableCollapsibleSubtasks').checked = data.collapsibleSubtasksEnabled;
         document.getElementById('boardOrColumn').children[data.boardOrColumn || 0].checked = true;
         document.getElementById('optionCollapseSubtasksByDefault').checked = data.collapseSubtasksByDefaultEnabled;
+        document.getElementById('optionEnablePriorityIndication').checked = data.priorityIndicationEnabled;
+        setPrioirtyColours(data.priorityColour);
     });
 });
