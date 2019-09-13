@@ -1,4 +1,4 @@
-chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn'], function(data) {
+chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn', 'collapseSubtasksByDefaultEnabled'], function(data) {
     const hideShowSubtasksByColumn = (element) => {
         const parentCardChildren = element.target.parentNode.children;
 
@@ -31,27 +31,19 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn'], functio
     }
 
     if (data.collapsibleSubtasksEnabled) {
-        if (data.boardOrColumn) { //collapse by board
-            const parents = document.querySelectorAll('.ghx-parent-group:not(.js-fake-parent)');
-            parents.forEach((parentCard, index) => {
-                const hasButtonAlready = parentCard.innerHTML.includes('subtasks</button>');
-                if (!hasButtonAlready) {
-                    parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
-                    var myButton = document.querySelector ('#subtask-button-' + index);
-                    myButton.addEventListener ("click", hideShowSubtasksByBoard , false);
+        const selector = data.boardOrColumn ? '.ghx-parent-group:not(.js-fake-parent)' : '.ghx-parent-group';
+        const parents = document.querySelectorAll(selector);
+        parents.forEach((parentCard, index) => {
+            const hasButtonAlready = parentCard.innerHTML.includes('subtasks</button>');
+            if (!hasButtonAlready) {
+                parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
+                var myButton = document.querySelector ('#subtask-button-' + index);
+                const hideFunction = data.boardOrColumn ? hideShowSubtasksByBoard : hideShowSubtasksByColumn;
+                myButton.addEventListener ("click", hideFunction , false);
+                if (data.collapseSubtasksByDefaultEnabled) {
+                    myButton.dispatchEvent(new Event("click"));
                 }
-            });
-        }
-        if (!data.boardOrColumn) { //collapse by colmn
-            const parents = document.querySelectorAll('.ghx-parent-group');
-            parents.forEach((parentCard, index) => {
-                const hasButtonAlready = parentCard.innerHTML.includes('subtasks</button>');
-                if (!hasButtonAlready) {
-                    parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
-                    var myButton = document.querySelector ('#subtask-button-' + index);
-                    myButton.addEventListener ("click", hideShowSubtasksByColumn , false);
-                }
-            });
-        }
+            }
+        });
     }
 });
