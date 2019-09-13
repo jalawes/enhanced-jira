@@ -5,10 +5,10 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn', 'collaps
         for (var i = 2; i < parentCardChildren.length; i++) {
             if (parentCardChildren[i].style.display === 'none') {
                 parentCardChildren[i].style.display = 'block';
-                element.target.innerHTML = 'collapse subtasks';
+                element.target.innerHTML = 'hide subs';
             } else {
                 parentCardChildren[i].style.display = 'none';
-                element.target.innerHTML = 'show subtasks';
+                element.target.innerHTML = 'show subs';
             }
         }
     }
@@ -21,10 +21,10 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn', 'collaps
             if (tasks.includes(allCards[i].getAttribute('data-issue-key'))) {
                 if (allCards[i].style.display === 'none') {
                     allCards[i].style.display = 'block';
-                    element.target.innerHTML = '- hide subtasks';
+                    element.target.innerHTML = 'hide subs';
                 } else {
                     allCards[i].style.display = 'none';
-                    element.target.innerHTML = '+ show subtasks';
+                    element.target.innerHTML = 'show subs';
                 }
             }
         }
@@ -34,7 +34,7 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn', 'collaps
         const selector = data.boardOrColumn ? '.ghx-parent-group:not(.js-fake-parent)' : '.ghx-parent-group';
         const parents = document.querySelectorAll(selector);
         parents.forEach((parentCard, index) => {
-            const hasButtonAlready = parentCard.innerHTML.includes('subtasks</button>');
+            const hasButtonAlready = parentCard.innerHTML.includes('subs</button>');
             if (!hasButtonAlready) {
                 parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
                 var myButton = document.querySelector ('#subtask-button-' + index);

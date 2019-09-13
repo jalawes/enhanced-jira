@@ -30,8 +30,13 @@ chrome.storage.sync.get(['backgroundImageUrl', 'backgroundEnabled'], function(da
         }
 
         for (let i = 0; i < collumns.length; i++) {
-            collumns[i].style.background = 'rgba(255, 255, 255, 0.5)';
-            collumns[i].style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            if (collumns[i].children[0].className === 'ghx-column-header-flex') {
+                collumns[i].style.background = 'rgba(255, 255, 255, 0.85)';
+                collumns[i].style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+            } else {
+                collumns[i].style.background = 'rgba(255, 255, 255, 0.5)';
+                collumns[i].style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            }
         }
     }
 });
