@@ -74,6 +74,7 @@ document.getElementById('addAssignee').addEventListener('click', () => addAssign
 
 //highlight link
 const highlightSideBarLink = (element) => {
+    const sidebarLinks = document.querySelectorAll('.sidebarLink');
     for (let j = 0; j < sidebarLinks.length; j++) {
         sidebarLinks[j].classList.remove('border-l-4');
     }
@@ -81,10 +82,17 @@ const highlightSideBarLink = (element) => {
 };
 
 //add sidebar link highlighting on click
-sidebarLinks = document.querySelectorAll('.sidebarLink');
+const sidebarLinks = document.querySelectorAll('.sidebarLink');
 for (let i = 0; i < sidebarLinks.length; i++) {
     sidebarLinks[i].addEventListener("click", highlightSideBarLink);
 }
+
+//click logo sets highlight to first link
+document.querySelector('#logo-link').addEventListener('click', () => {
+    const sidebarLinks = document.querySelectorAll('.sidebarLink');
+    sidebarLinks[0].dispatchEvent(new Event("click"));
+    window.scrollTo(0, 0);
+});
 
 //auto highlight sidebar based on scroll
 window.onload = () => {
