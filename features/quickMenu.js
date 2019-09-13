@@ -18,14 +18,14 @@ chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
         quickMenuButton.style.transform = 'translateX(-50%)';
         quickMenuButton.style.width = '120px';
         quickMenuButton.innerHTML = '☰ Quick Menu';
-        menuButton.parentElement.insertBefore(quickMenuButton, menuButton);
+        document.getElementsByTagName('body')[0].append(quickMenuButton);
 
         //menu content
         const content = document.createElement("div");
         content.innerHTML = data.QuickMenuHTML;
         content.id = 'quick-menu-content';
         content.style.position = 'fixed';
-        content.style.zIndex = '10';
+        content.style.zIndex = '9999';
         content.style.top = '42px';
         content.style.left = '50%';
         content.style.transform = 'translateX(-50%)';
@@ -33,7 +33,7 @@ chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
         content.style.border = '1px solid #6f6f6f';
         content.style.borderRadius = '4px';
         content.style.visibility = 'hidden';
-        menuButton.parentElement.insertBefore(content, menuButton);
+        document.getElementsByTagName('body')[0].append(content);
 
         document.getElementById('quick-menu').addEventListener('click', () => openMenu());
     }

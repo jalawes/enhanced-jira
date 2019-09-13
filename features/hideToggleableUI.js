@@ -58,8 +58,6 @@ chrome.storage.sync.get([
     }
 
     if (data.hideNoSubtasksButtonEnabled && data.hideNonClosedIssuesButtonEnabled && data.hideOnlyMyIssuesButtonEnabled && data.hideRecentlyUpdatedButtonEnabled) {
-        //we can collapse the ui from two rows to 1
-        console.log('compressing');
         document.querySelector('.ghx-top-header').style.position = 'fixed';
         document.querySelector('.ghx-top-header').style.right = '10px';
     }
