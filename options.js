@@ -51,12 +51,12 @@ for (let i = 0; i < removeAssigneeButtons.length; i++) {
 const assigneeHTML = `<div class="md:flex md:items-center mb-1">
       <div class="md:w-1/3">
         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-          assignee colours
+          Assignee Colours
         </label>
       </div>
       <div class="md:w-2/3">
-        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssignee" type="text" value="Jane Doe">
-        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssigneeColour" type="text" value="#ffffff">
+        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssignee" placeholder="Name" type="text" value="Jane Doe">
+        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-1/3 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 optionAssigneeColour" placeholder="Colour" type="text" value="#ffffff">
         <button class="mt-1 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded removeAssigneeButton" type="button">remove</button>
       </div>
     </div>`;
@@ -65,11 +65,82 @@ const addAssignee = (name, colour) => {
     assignee.innerHTML = assigneeHTML;
     assignee.querySelector('.optionAssignee').value = name;
     assignee.querySelector('.optionAssigneeColour').value = colour;
-    const parentContainer = document.querySelector('form');
+    const parentContainer = document.querySelector('#assignee-container');
     assignee.querySelector('.removeAssigneeButton').addEventListener('click', removeAssignee, false);
-    parentContainer.insertBefore(assignee, parentContainer.children[5]);
+    parentContainer.insertBefore(assignee, parentContainer.children[2]);
 };
 document.getElementById('addAssignee').addEventListener('click', () => addAssignee("", ""));
+
+
+//highlight link
+const highlightSideBarLink = (element) => {
+    const sidebarLinks = document.querySelectorAll('.sidebarLink');
+    for (let j = 0; j < sidebarLinks.length; j++) {
+        sidebarLinks[j].classList.remove('border-l-4');
+    }
+    element.target.classList.add('border-l-4');
+};
+
+//add sidebar link highlighting on click
+const sidebarLinks = document.querySelectorAll('.sidebarLink');
+for (let i = 0; i < sidebarLinks.length; i++) {
+    sidebarLinks[i].addEventListener("click", highlightSideBarLink);
+}
+
+//click logo sets highlight to first link
+document.querySelector('#logo-link').addEventListener('click', () => {
+    const sidebarLinks = document.querySelectorAll('.sidebarLink');
+    sidebarLinks[0].dispatchEvent(new Event("click"));
+    window.scrollTo(0, 0);
+});
+
+//auto highlight sidebar based on scroll
+window.onload = () => {
+    window.onscroll = () => {
+        settingsHeadings = document.querySelectorAll('.hashLinkOffsetForNavBar');
+        for (let i = 0; i < settingsHeadings.length; i++) {
+            const offset = settingsHeadings[i].getBoundingClientRect().top;
+            if (offset < 120) {
+                const link = document.querySelector("a[href='#" + settingsHeadings[i].id + "']");
+                link.dispatchEvent(new Event("click"));
+            }
+        }
+    }
+};
+
+//toggleMenuItemsVisible
+const toggleSidebarLink = (element) => {
+    const searchTerm = element.target.value;
+
+    const sidebarLinks = document.querySelectorAll('.sidebarLink');
+    for (let i = 0; i < sidebarLinks.length; i++) {
+        if (!sidebarLinks[i].innerHTML.toLowerCase().includes(searchTerm)) {
+            sidebarLinks[i].parentNode.style.display = 'none';
+        } else {
+            sidebarLinks[i].parentNode.style.display = 'block';
+        }
+    }
+};
+
+const toggleSettingsSections = (element) => {
+    const searchTerm = element.target.value;
+
+    const settingsHeadings = document.querySelectorAll('.hashLinkOffsetForNavBar');
+    for (let i = 0; i < settingsHeadings.length; i++) {
+        if (!settingsHeadings[i].innerHTML.toLowerCase().includes(searchTerm)) {
+            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'none';
+        } else {
+            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'block';
+        }
+    }
+};
+
+//search functionality
+document.querySelector('#settings-search').addEventListener("keyup", toggleSidebarLink);
+document.querySelector('#settings-search').addEventListener("search", toggleSidebarLink);
+document.querySelector('#settings-search').addEventListener("keyup", toggleSettingsSections);
+document.querySelector('#settings-search').addEventListener("search", toggleSettingsSections);
+
 
 //load/set previous settings
 document.addEventListener("DOMContentLoaded", function() {
