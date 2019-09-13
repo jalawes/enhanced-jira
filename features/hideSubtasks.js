@@ -36,7 +36,7 @@ chrome.storage.sync.get(['collapsibleSubtasksEnabled', 'boardOrColumn', 'collaps
         parents.forEach((parentCard, index) => {
             const hasButtonAlready = parentCard.innerHTML.includes('subs</button>');
             if (!hasButtonAlready) {
-                parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
+                parentCard.innerHTML = '<button style="width: calc(100% - 10px); margin-left: 5px; margin-top: 5px;" class="aui-button ghx-actions-tools" id="subtask-button-' + index + '">collapse subtasks</button>' + parentCard.innerHTML;
                 var myButton = document.querySelector ('#subtask-button-' + index);
                 const hideFunction = data.boardOrColumn ? hideShowSubtasksByBoard : hideShowSubtasksByColumn;
                 myButton.addEventListener ("click", hideFunction , false);
