@@ -12,9 +12,10 @@ chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
         const menuButton = document.querySelector('#board-tools-section-button');
         const quickMenuButton = menuButton.cloneNode(false);
         quickMenuButton.id = 'quick-menu';
-        quickMenuButton.style.position = 'absolute';
+        quickMenuButton.style.position = 'fixed';
         quickMenuButton.style.top = '4px';
-        quickMenuButton.style.left = 'calc(50% - 60px)';
+        quickMenuButton.style.left = '50%';
+        quickMenuButton.style.transform = 'translateX(-50%)';
         quickMenuButton.style.width = '120px';
         quickMenuButton.innerHTML = '☰ Quick Menu';
         menuButton.parentElement.insertBefore(quickMenuButton, menuButton);
@@ -26,7 +27,7 @@ chrome.storage.sync.get(['quickMenuEnabled', 'QuickMenuHTML'], function(data) {
         content.style.position = 'fixed';
         content.style.zIndex = '10';
         content.style.top = '42px';
-        content.style.left = '53%';
+        content.style.left = '50%';
         content.style.transform = 'translateX(-50%)';
         content.style.background = 'white';
         content.style.border = '1px solid #6f6f6f';
