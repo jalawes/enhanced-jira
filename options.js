@@ -51,7 +51,7 @@ for (let i = 0; i < removeAssigneeButtons.length; i++) {
 const assigneeHTML = `<div class="md:flex md:items-center mb-1">
       <div class="md:w-1/3">
         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-          assignee colours
+          Assignee Colours
         </label>
       </div>
       <div class="md:w-2/3">
@@ -70,6 +70,35 @@ const addAssignee = (name, colour) => {
     parentContainer.insertBefore(assignee, parentContainer.children[5]);
 };
 document.getElementById('addAssignee').addEventListener('click', () => addAssignee("", ""));
+
+
+//highlight link
+const highlightSideBarLink = (element) => {
+    for (let j = 0; j < sidebarLinks.length; j++) {
+        sidebarLinks[j].classList.remove('border-l-4');
+    }
+    element.target.classList.add('border-l-4');
+};
+
+//add sidebar link highlighting
+sidebarLinks = document.querySelectorAll('.sidebarLink');
+for (let i = 0; i < sidebarLinks.length; i++) {
+    sidebarLinks[i].addEventListener("click", highlightSideBarLink);
+}
+
+//auto highlight sidebar based on scroll
+window.onload = () => {
+    window.onscroll = () => {
+        settingsHeadings = document.querySelectorAll('.hashLinkOffsetForNavBar');
+        for (let i = 0; i < settingsHeadings.length; i++) {
+            const offset = settingsHeadings[i].getBoundingClientRect().top;
+            if (offset < 120) {
+                const link = document.querySelector("a[href='#" + settingsHeadings[i].id + "']");
+                link.dispatchEvent(new Event("click"));
+            }
+        }
+    }
+};
 
 //load/set previous settings
 document.addEventListener("DOMContentLoaded", function() {
