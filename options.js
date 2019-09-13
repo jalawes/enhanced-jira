@@ -116,38 +116,26 @@ window.onload = () => {
     }
 };
 
-//toggleMenuItemsVisible
-const toggleSidebarLink = (element) => {
+const toggleSections = (element) => {
     const searchTerm = element.target.value;
 
+    const settingsHeadings = document.querySelectorAll('.hashLinkOffsetForNavBar');
     const sidebarLinks = document.querySelectorAll('.sidebarLink');
-    for (let i = 0; i < sidebarLinks.length; i++) {
-        if (!sidebarLinks[i].innerHTML.toLowerCase().includes(searchTerm)) {
+    for (let i = 0; i < settingsHeadings.length; i++) {
+        const searchableText = settingsHeadings[i].parentNode.parentNode.parentNode.innerHTML.replace(/<[^>]*>?/gm, '');
+        if (!searchableText.toLowerCase().includes(searchTerm)) {
+            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'none';
             sidebarLinks[i].parentNode.style.display = 'none';
         } else {
+            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'block';
             sidebarLinks[i].parentNode.style.display = 'block';
         }
     }
 };
 
-const toggleSettingsSections = (element) => {
-    const searchTerm = element.target.value;
-
-    const settingsHeadings = document.querySelectorAll('.hashLinkOffsetForNavBar');
-    for (let i = 0; i < settingsHeadings.length; i++) {
-        if (!settingsHeadings[i].innerHTML.toLowerCase().includes(searchTerm)) {
-            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'none';
-        } else {
-            settingsHeadings[i].parentNode.parentNode.parentNode.style.display = 'block';
-        }
-    }
-};
-
 //search functionality
-document.querySelector('#settings-search').addEventListener("keyup", toggleSidebarLink);
-document.querySelector('#settings-search').addEventListener("search", toggleSidebarLink);
-document.querySelector('#settings-search').addEventListener("keyup", toggleSettingsSections);
-document.querySelector('#settings-search').addEventListener("search", toggleSettingsSections);
+document.querySelector('#settings-search').addEventListener("keyup", toggleSections);
+document.querySelector('#settings-search').addEventListener("search", toggleSections);
 
 
 //load/set previous settings
