@@ -15,7 +15,7 @@ chrome.webNavigation.onCompleted.addListener((details) => {
   }
 });
 
-chrome.webRequest.onBeforeRequest.addListener((details) => {
+chrome.webRequest.onCompleted.addListener((details) => {
   if (details.url.includes('atlassian.net/rest/greenhopper')) {
     chrome.tabs.executeScript(details.tabId, { file: 'features/setBackgroundImage.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/setAssigneeHighlight.js' });
@@ -23,6 +23,10 @@ chrome.webRequest.onBeforeRequest.addListener((details) => {
     chrome.tabs.executeScript(details.tabId, { file: 'features/quickMenu.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/hideSubtasks.js' });
     chrome.tabs.executeScript(details.tabId, { file: 'features/priorityIndicator.js' });
+
+    //fixes some bug in confluence
+    //https://community.atlassian.com/t5/Answers-Developer-Questions/What-is-the-x-atlassian-mau-ignore-header-why-is-my-JIRA-server/qaq-p/469016
+    new Function('require(\'atlassian/analytics/user-activity-xhr-header\').uninstall();').call(this);
   }
   return { requestHeaders: details.requestHeaders };
 }, { urls: ['<all_urls>'] }, ['blocking']);
