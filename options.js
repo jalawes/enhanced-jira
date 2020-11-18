@@ -40,6 +40,7 @@ const save = () => {
     chrome.storage.sync.set({boardOrColumn: document.getElementById('boardOrColumn').children[2].checked ? 2 : 0});
     chrome.storage.sync.set({collapseSubtasksByDefaultEnabled: document.getElementById('optionCollapseSubtasksByDefault').checked});
     chrome.storage.sync.set({priorityIndicationEnabled: document.getElementById('optionEnablePriorityIndication').checked});
+    chrome.storage.sync.set({hideTopNavbarEnabled: document.getElementById('optionHideTopNavbar').checked});
     chrome.storage.sync.set({priorityColour: priorityColourOptions});
     showSaveAlert();
 };
@@ -179,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'collapseSubtasksByDefaultEnabled',
         'priorityIndicationEnabled',
         'priorityColour',
+        'hideTopNavbarEnabled',
     ], function(data) {
         document.getElementById('optionEnableCustomBackground').checked = data.backgroundEnabled;
         document.getElementById('optionCustomBackgroundUrl').value = data.backgroundImageUrl;
@@ -200,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('boardOrColumn').children[data.boardOrColumn || 0].checked = true;
         document.getElementById('optionCollapseSubtasksByDefault').checked = data.collapseSubtasksByDefaultEnabled;
         document.getElementById('optionEnablePriorityIndication').checked = data.priorityIndicationEnabled;
+        document.getElementById('optionHideTopNavbar').checked = data.hideTopNavbarEnabled;
         setPrioirtyColours(data.priorityColour);
     });
 });

@@ -9,9 +9,10 @@ chrome.storage.sync.get([
     'hideNonClosedIssuesButtonEnabled',
     'hideOnlyMyIssuesButtonEnabled',
     'hideRecentlyUpdatedButtonEnabled',
+    'hideTopNavbarEnabled',
 ], function(data) {
-    if (data.hideBreadCrumbsEnabled && document.querySelector('#breadcrumbs-container')) {
-        document.querySelector('#breadcrumbs-container').remove();
+    if (data.hideBreadCrumbsEnabled && document.querySelector('[data-testid=rapidboard-breadcrumbs]')) {
+        document.querySelector('[data-testid=rapidboard-breadcrumbs]').remove();
     }
     if (data.hideBoardTitleEnabled && document.querySelector('#subnav-title')) {
         document.querySelector('#subnav-title').remove();
@@ -27,6 +28,11 @@ chrome.storage.sync.get([
     }
     if (data.hideDaysRemainingEnabled && document.querySelector('.time')) {
         document.querySelector('.time').remove();
+    }
+    if (data.hideTopNavbarEnabled && document.querySelector('[data-testid=atlassian-navigation--header]').parentElement) {
+        document.querySelector('[data-testid=atlassian-navigation--header]').parentElement.remove();
+        document.querySelector('[data-testid=Navigation]').style.top = '0px';
+        document.querySelector('[data-testid=Content]').style.setProperty("margin-top", "0px", "important");
     }
     if (data.hideNoSubtasksButtonEnabled) {
         for (const button of document.querySelector('#ghx-quick-filters').querySelectorAll("button")) {
